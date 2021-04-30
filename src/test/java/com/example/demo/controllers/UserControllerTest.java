@@ -37,7 +37,7 @@ public class UserControllerTest {
     // this falls under sanity case (happy path: happy case, bare minimum positive case)
     @Test
     public void create_user_happy_path() throws Exception{
-        // stubbing
+        // stubbing, predefining what the encode method will make out of the input password
         when(encoder.encode("testPassword")).thenReturn("thisIsHashed");
         CreateUserRequest r = new CreateUserRequest();
         r.setUsername("test");

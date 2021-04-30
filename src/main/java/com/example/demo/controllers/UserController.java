@@ -34,8 +34,7 @@ public class UserController {
 	@Autowired
 	BCryptPasswordEncoder bCryptPasswordEncoder;
 
-	private static Logger logger = LoggerFactory.getLogger(SLF4JLoggerContext.class);
-
+	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	@GetMapping("/id/{id}")
 	public ResponseEntity<User> findById(@PathVariable Long id) {
