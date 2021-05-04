@@ -45,6 +45,7 @@ public class UserControllerTest {
         r.setConfirmPassword("testPassword");
 
         final ResponseEntity<User> response = userController.createUser(r);
+        // negative testing
         assertNotNull(response);
         assertEquals(200, response.getStatusCodeValue());
 

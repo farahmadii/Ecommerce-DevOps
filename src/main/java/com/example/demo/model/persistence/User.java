@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -28,6 +29,7 @@ public class User {
 	private String username;
 
 	@Column(nullable = false)
+	//@Size(min = 8)
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String password;
 	
@@ -35,7 +37,8 @@ public class User {
     @JoinColumn(name = "cart_id", referencedColumnName = "id")
 	@JsonIgnore
     private Cart cart;
-	
+
+
 	public Cart getCart() {
 		return cart;
 	}

@@ -34,7 +34,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         try {
             User credentials = new ObjectMapper()
                     .readValue(req.getInputStream(), User.class);
-
+            //logger.info(LogMF.format("attemptAuthentication", "Attempting Auth for user " + credentials.getUsername() + "."));
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             credentials.getUsername(),
