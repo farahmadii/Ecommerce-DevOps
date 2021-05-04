@@ -1,7 +1,6 @@
 package com.example.demo.controllers;
 
 
-import org.apache.logging.slf4j.SLF4JLoggerContext;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +23,8 @@ import org.slf4j.Logger;
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
+
+	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
 	@Autowired
 	private UserRepository userRepository;
@@ -34,7 +35,6 @@ public class UserController {
 	@Autowired
 	BCryptPasswordEncoder bCryptPasswordEncoder;
 
-	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	@GetMapping("/id/{id}")
 	public ResponseEntity<User> findById(@PathVariable Long id) {
@@ -55,10 +55,13 @@ public class UserController {
 		Cart cart = new Cart();
 		cartRepository.save(cart);
 		user.setCart(cart);
-		// checking password (in terms of length and integrity
-		if(createUserRequest.getPassword().length()<8 ||
-				!createUserRequest.getPassword().equals(createUserRequest.getConfirmPassword())){
-			logger.error("Error with user password, Cannot create user {}, ", createUserRequest.getUsername());
+		// checking password (in terms of length and integrity)
+		if(createUserRequest.getPassword().length()<8){
+			logger.error("user creation failed for user: {}, Reason: password complexity requirement isn't met." , createUserRequest.getUsername());
+			return ResponseEntity.badRequest().build();
+		}
+		else if(!createUserRequest.getPassword().equals(createUserRequest.getConfirmPassword())){
+			logger.error("user creation failed for user: {}, Reason: mismatch happened in password and confirmPassword", createUserRequest.getUsername());
 			return ResponseEntity.badRequest().build();
 		}
 

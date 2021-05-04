@@ -54,13 +54,13 @@ public class OrderController {
 	
 	@GetMapping("/history/{username}")
 	public ResponseEntity<List<UserOrder>> getOrdersForUser(@PathVariable String username) {
-		logger.info("Attempting to get order history for user: " + username);
+		logger.info("Attempting to get order history for user: " , username);
 		User user = userRepository.findByUsername(username);
 		if(user == null) {
 			logger.info("get history request failed, Reason: user not found.");
 			return ResponseEntity.notFound().build();
 		}
-		logger.info("get history successfully done for user: {}, response code: 200" + username);
+		logger.info("get history successfully done for user: {}, response code: 200" , username);
 		return ResponseEntity.ok(orderRepository.findByUser(user));
 	}
 }
