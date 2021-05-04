@@ -43,7 +43,7 @@ public class ItemControllerTest {
 
 
     @Test
-    public void getItems_happy_path(){
+    public void getItems_happy_path() throws Exception{
         logger.debug("Testing: getItemsInTheInventory...");
         final ResponseEntity<List<Item>> response = itemController.getItems();
         assertNotNull(response);
@@ -53,7 +53,7 @@ public class ItemControllerTest {
 
 
     @Test
-    public void getItemByIdNotFound(){
+    public void getItemByIdNotFound() throws Exception{
         logger.debug("Testing: getItemByIdNotFound...");
         final ResponseEntity<Item> response = itemController.getItemById(100L);
         assertNotNull(response);
@@ -61,7 +61,7 @@ public class ItemControllerTest {
     }
 
     @Test
-    public void getItemById_happy_path(){
+    public void getItemById_happy_path() throws Exception{
         logger.debug("Testing: getItemById_happy_path...");
         when(itemRepository.findById(0L)).thenReturn(java.util.Optional.ofNullable(testItem));
         final ResponseEntity<Item> response = itemController.getItemById(0L);
@@ -70,7 +70,7 @@ public class ItemControllerTest {
     }
 
     @Test
-    public void getItemByNameNotFound(){
+    public void getItemByNameNotFound() throws Exception{
         logger.debug("Testing: getItemByNameNotFound...");
         when(itemRepository.findByName("Item")).thenReturn(null);
         final ResponseEntity<List<Item>> response = itemController.getItemsByName("Item");
@@ -79,8 +79,7 @@ public class ItemControllerTest {
     }
 
     @Test
-    public void getItemByName_happy_path()
-    {
+    public void getItemByName_happy_path() throws Exception{
         logger.debug("Testing: getItemByName_happy_path...");
         when(itemRepository.findByName("UniqueItem")).thenReturn(Collections.singletonList(testItem));
         final ResponseEntity<List<Item>> response = itemController.getItemsByName(testItem.getName());
